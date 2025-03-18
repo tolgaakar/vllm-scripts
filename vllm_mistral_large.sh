@@ -1,0 +1,23 @@
+docker run -d --gpus all \
+	--name mistral_large \
+	-v ~/.cache/huggingface:/root/.cache/huggingface \
+	-v ~/.cache/vllm:/root/.cache/vllm \
+	-v /home/ubuntu/vllm-chat-templates:/vllm-workspace/chat_templates \
+ 	--env "HUGGING_FACE_HUB_TOKEN=YOUR_HF_TOKEN" \
+	--env "VLLM_USE_V1=1" \
+	-p 8000:8000 \
+	--ipc=host \
+	vllm/vllm-openai:latest \
+	--model TechxGenus/Mistral-Large-Instruct-2411-GPTQ \
+	--tokenizer-mode mistral \
+	--config-format mistral \
+	--load-format mistral \
+	--trust-remote-code \
+	--max-model-len 25000 \
+	--served-model-name Mistral-Large-Instruct-INT4 \
+	--enable-chunked-prefill \
+	--gpu_memory_utilization 0.95 \
+	--api-key YOUR_ARBITRARY_VLLM_TOKEN \
+    --enable-auto-tool-choice \
+    --tool-call-parser mistral \
+	--chat-template examples/tool_chat_template_mistral_parallel.jinja \

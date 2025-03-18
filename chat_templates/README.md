@@ -1,0 +1,1 @@
+The chat templates here are not used by the start scripts by default. vLLM Docker container has them already inside under `examples/` folder. However, if you want to pass a custom chat template from this folder, you can mount this folder as a volume to the Docker container (see `vllm_llama_33b_70b_fp8.sh` for example)
